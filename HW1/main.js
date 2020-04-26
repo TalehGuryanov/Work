@@ -1,39 +1,40 @@
-"use strict"
-
-let cyclistsData = [
-  {
-    distanceKm: 150,
-    tHours: 70
-  },
-  {
-    distanceKm: 170,
-    tHours: 80
-  },
+var carsData = [
   {
     distanceKm: 200,
-    tHours: 90
+    timeMin: 30
   },
   {
-    distanceKm: 490,
-    tHours: 90
+    distanceKm: 250,
+    timeMin: 45
   },
   {
-    distanceKm: 190,
-    tHours: 30
+    distanceKm: 354,
+    timeMin: 33
+  },
+  {
+    distanceKm: 188,
+    timeMin: 29
   }
-];
+]
 
+function calculateVelocity(distance, minutes){
+  var timeHour = minutes / 60;
+  var vKmH = distance / timeHour;
 
-let calculateVelocity = function(hours, distance){
-  let vKmh = distance / hours;
- return vKmh;
+  return vKmH;
+
 };
 
-for (let i = 0; i < cyclistsData.length; i++){
+var maxV = 0;
 
-  let v = calculateVelocity(
-    cyclistsData[i].tHours,
-    cyclistsData[i].distanceKm
-  )
-  console.log (v);
-}
+for (i = 0; i < carsData.length; i++){
+  var distanceKm = carsData[i].distanceKm;
+  var timeMin = carsData[i].timeMin;
+  var currentVkmH = calculateVelocity(distanceKm, timeMin);
+
+  if (currentVkmH > maxV){
+    maxV = currentVkmH;
+  }
+};
+
+console.log(maxV);

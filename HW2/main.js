@@ -39,7 +39,7 @@ console.log(b);
 var arr = [11, 27, 3, 4,8, 'Зеленый', 'Синий', 'Дерево', null, 0];
 for (var i = 0; i < arr.length; i++){
   if (typeof arr[i] == 'number' && arr[i] > 7){
-   console.log(arr[i]) ;
+    console.log([i] + '-' + arr[i]);
   } 
 }
 
@@ -48,7 +48,7 @@ for (var i = 0; i < arr.length; i++){
 var arr = [11, 27, 3, 4,8, 'Зеленый', 'Синий', 'Дерево', null, 0];
 for (var i = 0; i < arr.length; i++){
   if (typeof arr[i] == 'string' && arr[i].length > 5){
-   console.log(arr[i]) ;
+    console.log([i] + '-' + arr[i]);
   } 
 }
 
@@ -155,9 +155,7 @@ var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   
   
   var test = function(func){
-    
-    func(8);
-    
+       
     var array = [];
     
     array.push(func(8))

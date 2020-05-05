@@ -1,0 +1,54 @@
+body{
+  background-color: #e9b000;
+  color: #fff;
+}
+
+._color-scheme-light{
+  background-color: #f9f9f9;
+  color: #000;
+}
+
+.b-tasks{
+  background-color: #9b2837;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #000;
+}
+
+._color-scheme-light .b-tasks{
+  background-color: #d3af57;
+}
+
+
+.l-tasks .l-tasks__item:nth-child(2){
+  margin: 20px 0;
+  border-top: dashed 2px #fff;
+  border-bottom: dashed 2px #fff;
+  padding: 20px 0;
+  font-style: italic;
+}
+
+._color-scheme-light .l-tasks .l-tasks__item:nth-child(2){
+  border-top: dashed 2px #898989;
+  border-bottom: dashed 2px #898989;
+}
+
+.l-tasks__btn{
+  background-color: #c4c4c4;
+  border: solid 1px #fff;
+  border-radius: 2px;
+  color: #9b2837;
+  padding: 10px;
+  font-weight: 600;
+}
+
+._color-scheme-light .l-tasks__btn{
+  background-color: #555354;
+  color: #d4d4d4;
+}
+
+.l-tasks__inner+.l-tasks__btn{
+  margin-top: 10px;
+}

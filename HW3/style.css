@@ -36,18 +36,35 @@ body{
 }
 
 .l-tasks__btn{
-  background-color: #c4c4c4;
   border: solid 1px #fff;
   border-radius: 2px;
-  color: #9b2837;
   padding: 10px;
   font-weight: 600;
+  color: #524f4e;
+  background: #fff;
+  box-shadow: 0 8px 15px rgba(0,0,0,.1);
+  transition: all .3s;
+}
+
+.l-tasks__btn:hover{
+  background: rgb(46, 95, 229);
+  box-shadow: 0 15px 25px rgba(229, 253, 89, 0.5);
+  color: #fff;
+  transform: translateY(-7px);
 }
 
 ._color-scheme-light .l-tasks__btn{
-  background-color: #555354;
-  color: #d4d4d4;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 15px 25px rgba(229, 83, 46, .5);
 }
+
+._color-scheme-light .l-tasks__btn:hover{
+  background: rgb(229, 46, 107);
+  box-shadow: 0 15px 25px rgba(49, 46, 229, .5);
+  color: #fff;
+}
+
 
 .l-tasks__inner+.l-tasks__btn{
   margin-top: 10px;

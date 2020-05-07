@@ -4,28 +4,32 @@ var itemText = document.querySelector('.l-tasks__item-text');
 var btnToggle = document.querySelector('.l-tasks__btn._toggle');
 var btnRemove = document.querySelector('.l-tasks__btn._remove');
 var spansArray = document.querySelectorAll('span');
+var changeColorHandler;
+var removeSpanHandler;
+var checkNum;
 
-var func = function(num){
+ checkNum = function(num){
   if(typeof num === 'number' && num % 2 === 0){
-    itemText.innerText = 'Number 8 is even';
+    itemText.innerText = 'Number ' + num + ' is even';
+  } else if (typeof num === 'number' && !(num % 2 === 0)){
+    itemText.innerText  = 'Number ' + num + ' is odd';
   } else {
     itemText.innerText = 'This is not a number';
   }; 
-}; func(8);
+}; checkNum(1000);
 
 console.log(itemText[0]);
 
 
-var changeColorHandler = function(){
+changeColorHandler = function(){
   body.classList.toggle('_color-scheme-light');
 };
 
 btnToggle.addEventListener('click', changeColorHandler);
 
-
-var removeSpanHandler = function(){
+removeSpanHandler = function(){
   if( body.classList.contains('_color-scheme-light')){
-    spansArray[9].remove();
+    spansArray[spansArray.length-1].remove();
   } else {
     spansArray[0].remove();
   }; btnRemove.removeEventListener('click', removeSpanHandler);

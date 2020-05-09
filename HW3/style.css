@@ -3,11 +3,6 @@ body{
   color: #fff;
 }
 
-._color-scheme-light{
-  background-color: #f9f9f9;
-  color: #000;
-}
-
 .b-tasks{
   background-color: #9b2837;
   max-width: 400px;
@@ -17,22 +12,12 @@ body{
   box-shadow: 0 0 5px #000;
 }
 
-._color-scheme-light .b-tasks{
-  background-color: #d3af57;
-}
-
-
-.l-tasks .l-tasks__item:nth-child(2){
+ .l-tasks__item:nth-child(2){
   margin: 20px 0;
   border-top: dashed 2px #fff;
   border-bottom: dashed 2px #fff;
   padding: 20px 0;
   font-style: italic;
-}
-
-._color-scheme-light .l-tasks .l-tasks__item:nth-child(2){
-  border-top: dashed 2px #898989;
-  border-bottom: dashed 2px #898989;
 }
 
 .l-tasks__btn{
@@ -53,6 +38,24 @@ body{
   transform: translateY(-7px);
 }
 
+.l-tasks__btn._remove{
+  margin-top: 10px;
+}
+
+._color-scheme-light{
+  background-color: #f9f9f9;
+  color: #000;
+}
+
+._color-scheme-light .b-tasks{
+  background-color: #d3af57;
+}
+
+._color-scheme-light .l-tasks__item:nth-child(2){
+  border-top: dashed 2px #898989;
+  border-bottom: dashed 2px #898989;
+}
+
 ._color-scheme-light .l-tasks__btn{
   background: #fff;
   color: #000;
@@ -63,9 +66,4 @@ body{
   background: rgb(229, 46, 107);
   box-shadow: 0 15px 25px rgba(49, 46, 229, .5);
   color: #fff;
-}
-
-
-.l-tasks__inner+.l-tasks__btn{
-  margin-top: 10px;
 }

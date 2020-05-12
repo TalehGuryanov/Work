@@ -20,9 +20,12 @@ var clickHandle = function(e){
     y = universe.offsetHeight - planetEarth.offsetHeight
   };
 
-  if (e.target.tagName.toLowerCase() === 'img'){
-    planetEarth.style.display = 'none';
-   } else{planetEarth.style.display = ''
+  if (planetEarth.style.display === 'none') {
+    return planetEarth.style.display = '';
+  };
+
+  if (e.target.tagName.toLowerCase() === 'img') {
+    return planetEarth.style.display = 'none';
   };
 
   planetEarth.style.transform = 'translate(' + x + 'px, ' + y + 'px)';

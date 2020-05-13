@@ -1,5 +1,5 @@
 body{
-  background-color: #040472;
+  background-color: #1a507b;
 }
 .b-universe{
   background-image: url(img/galaxy.jpg);
@@ -13,5 +13,7 @@ body{
 .b-universe__img{
   width: 100px;
   position: absolute;
-  transition: all .5s;
+  top: 0;
+  left: 0;
+  transition: transform .5s ease-in-out;
 }

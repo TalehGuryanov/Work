@@ -12,8 +12,8 @@ body{
 
 .b-universe__img{
   width: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
+  height: 100px;
   transition: transform .5s ease-in-out;
 }
+
+

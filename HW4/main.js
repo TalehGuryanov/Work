@@ -27,6 +27,8 @@ var clickHandler = function(e){
   planetEarth.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
 };
 
+
 universe.addEventListener('click', clickHandler);
+
 
 

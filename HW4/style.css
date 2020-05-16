@@ -10,10 +10,24 @@ body{
   position: relative;
 }
 
-.b-universe__img{
+/* .b-universe__planet-earth{
   width: 100px;
+  height: 100px;
   position: absolute;
   top: 0;
   left: 0;
+} */
+
+.b-universe__img{
+  width: 100px;
+  height: 100px;
+  animation: 1s linear infinite;
   transition: transform .5s ease-in-out;
 }
+
+@keyframes rotation{
+  to {
+    transform: rotate(360deg)
+  }
+}
+

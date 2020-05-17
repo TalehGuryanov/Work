@@ -1,18 +1,24 @@
 var body = document.body;
 var buttonSubmit = document.getElementsByClassName('f-default__btn')[0];
-var email = document.getElementsByTagName('input')[0];
-var password = document.getElementsByTagName('input')[1];
-var buttonSubmitHandler = function(event){
+var form = document.querySelector('.f-default');
+var formSubmitHandler = function(event){
   event.preventDefault()
-  event.stopPropagation()
 
-  if(!email.value || !password.value){
+  var emailValue = event.target.elements.email.value;
+  var passwordValue = event.target.elements.password.value;
+
+  if(!emailValue || !passwordValue){
     alert('Поле не заполнено');
-  } else if(password.value && password.value.length < 10){
+  } else if (passwordValue && passwordValue.length < 10){
     alert('Пароль должен содержать не менее 10 символов');
   };
 };
 
+var buttonSubmitHandler = function(){
+  event.stopPropagation()
+};
+
+form.addEventListener('submit', formSubmitHandler);
 buttonSubmit.addEventListener('click', buttonSubmitHandler);
 
 body.addEventListener('click', function(e){

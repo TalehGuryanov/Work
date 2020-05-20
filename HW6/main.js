@@ -9,19 +9,21 @@ var obj = {
   field4: '',
   field5: ['#00bcd4', '#ffc107', '#c00548'],
 };
+var counter;
 var findArrayHandler = function(){
-  var randomColors  = Math.floor(Math.random() * colors.length);
   if(!colors.length){
     for(var prop in obj) {
       if (obj[prop] instanceof Array){
           colors = obj[prop];
-      };
+      };  x = 1
     };
   };
+ 
+  counter = Math.floor(Math.random() * colors.length);
   body.style.backgroundColor = colors[randomColors];
 };
 
-var counter = -1;
+
 var changeColorsOnBody = function(e){
   var isLeftKey = e.code === 'ArrowLeft';
   var isRightKey = e.code === 'ArrowRight';
@@ -45,7 +47,6 @@ var changeColorsOnBody = function(e){
   body.style.backgroundColor = colors[counter];
 };
 
-console.log(colors);
 body.addEventListener('keydown', changeColorsOnBody);
 button.addEventListener('click', findArrayHandler);
 

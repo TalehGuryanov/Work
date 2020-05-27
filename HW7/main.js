@@ -2,6 +2,7 @@
 var array = [1, 2, 3, 4, 5];
 var newArray = array.slice();
 
+
 // 2
 var obj = {
   name: 'John',
@@ -9,6 +10,16 @@ var obj = {
   gender: 'male',
 };
 var newObj = Object.assign({}, obj);
+var origin = {
+  1: 'a',
+  2: 'b',
+  3: 'c',
+ };
+var clone = {};
+for(var key in origin){
+  clone[key] = origin[key];
+} 
+
 
 
 // 3
@@ -29,11 +40,11 @@ function outer() {
   var array = [];
 
   function inner(x) {
-      array.push(x);
-      console.log(array)
-      if (array.length === 5) {
-    array.length = 0;
-  }
+    if (array.length === 5) {
+      array.length = 0;
+    };
+    array.push(x);
+    console.log(array)
   };
   return inner;
 };
@@ -52,11 +63,10 @@ function outer() {
 
 
 // 5
-var button = document.getElementsByTagName('button')[0];
 var clickButton = function(){
   var count = 1;
-  return function(){
-    return button.innerHTML = 'Click count: ' + count++;
+  return function(e){
+    e.currentTarget.innerText = 'Click count: ' + count++;
  } 
 };
 var makeCounterHandler = clickButton();

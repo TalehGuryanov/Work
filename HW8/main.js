@@ -11,7 +11,7 @@ showName(name);
 
 // 2
 
-let arr = [
+let arrCity = [
   {
     city: 'New York',
     country: 'USA'
@@ -33,21 +33,21 @@ let arr = [
   ];
   
   
-let obj = 
+let objCity = 
 {
   usa: [],
   europe: []
 };
   
-arr.reduce(function(acc, item){
+arrCity.reduce(function(acc, item){
   item.country === 'USA' ? acc.usa.push(item.city) : acc.europe.push(item.city);
   return acc
-} , obj);
+} , objCity);
 
 // 3
-let arr = [1, 2, 1085, -485];
-console.log(Math.min.apply(null, arr));
-console.log(Math.max(...arr))
+let arrNum = [1, 2, 1085, -485];
+console.log(Math.min.apply(null, arrNum));
+console.log(Math.max(...arrNum))
 
 
 
@@ -62,31 +62,28 @@ console.log(newSum(3))
 
 // 5
 
-let chain = {
-    num : 0, 
-    setNum(x) {
-        this.num = x;
-        return this;
-    },
-    plus(x) {
-        this.num += x;
-        return this;
-    },
-    minus(x) {
-        this.num -= x; 
-        return this;
-    },
-    showNum() {
-        console.log(this.num);
-        return this;
-    }
+let setNum = function(x) {
+  return {
+      plus: function(y) {
+          x += y;
+          return this;
+      },
+      minus: function(y) {
+          x -= y;
+          return this;
+      },
+      getResult: function() {
+          return x;
+      }
+  };
 };
 
-chain.setNum(10).plus(7).minus(2).showNum();
+console.log(setNum(10).plus(7).minus(2).getResult());
+
 
 // 6
 
-let{usa, europe} = obj;
+let{usa, europe} = objCity;
 
 // 7
 const obj = {

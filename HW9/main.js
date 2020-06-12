@@ -61,7 +61,6 @@ export const requestCountries = function(x){
  }
 ];
  
- 
  setTimeout(function(){
    x(countries)
  }, 1000)

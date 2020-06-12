@@ -1,33 +1,38 @@
 'use strict'
 
+import {requestUsers, requestCountries} from './main.js'
+
 requestUsers(function(arr1){
   
   requestCountries(function(arr2){
   
-    const newArray = [];
-        
-    arr1.reduce(function(acc, item){
-      for(let key of arr2){
-        if (key.userId === item.id){
-          item.country = key.country
-        }
-      } newArray.push(item);
-      return newArray
-    }, newArray); 
+    const newArray = arr1.map(function(item){
 
-    console.log(newArray);
-    
-    const ul = creatList();
-    
-    for(let key of newArray){
-      const li = creatListItem(key);    
-     
-      ul.appendChild(li);
-   };
-    
-    document.body.appendChild(ul);     
+      const {country} = arr2.find(el => el.userId === item.id);
+
+      return{
+        ...item, country
+      };
+    });
+     console.log(newArray)
+
+     printHtml(newArray);
+      
    });  
 });
+
+function printHtml(arr3){
+
+  const ul = creatList();
+
+  for(let key of arr3){
+    const li = creatListItem(key);    
+   
+    ul.appendChild(li);
+ };
+  
+  document.body.appendChild(ul); 
+};
 
 function creatList(){
   return document.createElement('ul');
@@ -41,4 +46,3 @@ function creatListItem({firstName, lastName, country }){
   return li
 };
 
-import {requestUsers, requestCountries} from './main.js'

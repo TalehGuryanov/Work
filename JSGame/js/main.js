@@ -66,7 +66,6 @@ var setRandomCoors = function(e){
   if(ghost.style.display = 'none'){
        ghost.style.display = '';
   }
-
 };
 
 

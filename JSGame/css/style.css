@@ -12,6 +12,7 @@ body {
 	width: 1000px;
 	height: 650px;
 	position: relative;
+	overflow: hidden;
 }
 
 .b-shooter__aim{
@@ -39,6 +40,7 @@ body {
 	pointer-events: none;
 	transition: opacity;
 	transition-timing-function: ease-in;
+	animation: ghost-movements 2s infinite;
 }
 
 .b-shooter__img-fire{
@@ -51,4 +53,91 @@ body {
 	transition: opacity;
 	transition-timing-function: ease-in;
 	visibility: hidden;
+}
+
+@keyframes ghost-movements {
+	0% {
+		transform: scale(1.1) translateY(0);
+	}
+
+	10% {
+		transform: scale(1.1, .9) translateY(0);
+	}
+
+	30% {
+		transform: scale(.9, 1.1) translateY(-50px);
+	}
+
+	50% {
+		transform: scale(1.05, .95) translateY(-50px);
+	}
+
+	80% {
+		transform: scale(.9, 1.1) translateY(-30px);
+	}
+
+	10%{
+		transform: scale(1) translateY(0);
+	}
+}
+
+.b-shooter__progress{
+  /* width: 30px;
+	max-height: 450px; */
+	background-color: hsl(0, 0%, 0%, 50%);
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	position: absolute;
+	left: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 15px 7px;
+}
+
+.b-shooter__progress-icon{
+	height: 29px;
+	width: 29px;
+	margin: 10px 0;
+}
+
+.b-shooter__progress-icon:first-child{
+	margin-top: 0;
+}
+
+.b-shooter__progress-icon:last-child{
+	margin-bottom: 0;
+}
+
+.b-shooter__health{
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	background-color: hsl(0, 0%, 0%, 50%);
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+	display: flex;
+	justify-content: center;
+	padding: 8px 17px;
+}
+
+.b-shooter__health-icon{
+	width: 35px;
+	height: 35px;
+	margin: 0 10px;
+	fill: #f44336;
+}
+
+.b-shooter__health-icon:first-child{
+	margin-left: 0;
+}
+
+.b-shooter__health-icon:last-child{
+	margin-right: 0;
 }

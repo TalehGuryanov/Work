@@ -57,23 +57,23 @@ let getUsersData = function(){
   const ul = document.createElement('ul');
   ul.classList.add('inner_list')
 
-  allUsers.forEach(function(item){
+  for(let key of allUsers){
     const li = document.createElement('li');
 
     li.classList.add('list_item');
 
     li.innerHTML = `
       <div class="list_content">
-      <div class="user_img">
-        <img class="img" src="${item.picture.large}" alt="User Image">
-      </div>
-      <div class="user_data">
-        <h4>Hi, My name is</h4>
-        <p class="user_name"> ${item.name.first} ${item.name.last}</p>
-        <a class="user_email" href="#">${item.email}</a>
-      </div>
-    </div>`;
+        <div class="user_img">
+          <img class="img" src="${key.picture.large}" alt="User Image">
+        </div>
+        <div class="user_data">
+          <h4>Hi, My name is</h4>
+          <p class="user_name"> ${key.name.first} ${key.name.last}</p>
+          <a class="user_email" href="#">${key.email}</a>
+        </div>
+      </div>`;
     ul.appendChild(li);
-  })
+  }
   container.appendChild(ul);
 }

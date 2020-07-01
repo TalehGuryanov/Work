@@ -40,7 +40,7 @@ html, body{
 }
 
 .list_content{
-  border: 2px solid;
+  border: 2px solid #000;
   padding: 20px 0;
   position: relative;
   z-index: 1;
@@ -57,6 +57,51 @@ html, body{
   top: 0;
   z-index: -1;
 }
+
+
+.cross_button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+  border: 2px solid #f9f9f9;
+}
+
+.cross_button:active{
+  transform: scale(0.8);
+}
+
+.cross_button::before{
+  content: '';
+  width: 2px;
+  height: 15px;
+  background-color: #f9f9f9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  transform: rotate(-45deg);
+}
+
+.cross_button::after{
+  content: '';
+  width: 2px;
+  height: 15px;
+  background-color: #f9f9f9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  transform: rotate(45deg);
+}
+
 
 .user_img{
   margin: 0 auto;

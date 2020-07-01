@@ -36,7 +36,7 @@ setTimeout(function(){
 
 let getUsersData = function(){
   let allUsers = maleUsers.concat(femaleUsers);
-  const ul = document.createElement('ul');
+  let ul = document.createElement('ul');
   ul.classList.add('inner_list')
 
   for(let key of allUsers){
@@ -46,6 +46,8 @@ let getUsersData = function(){
 
     li.innerHTML = `
       <div class="list_content">
+        <button type="button" class="cross_button">        
+        </button>
         <div class="user_img">
           <img class="img" src="${key.picture.large}" alt="User Image">
         </div>
@@ -56,7 +58,49 @@ let getUsersData = function(){
         </div>
       </div>`;
     ul.appendChild(li);
-  }
+   }
   container.appendChild(ul);
+
   preloader.classList.add('_visible');
+
+}
+
+
+// const body = {
+//   id: idUsers.id
+// }
+
+const deleteUserData = function(method, body = null){
+  const headers = {
+    'Content-type': 'application/json'
+  };
+
+
+  return fetch('https://httpstat.us/200',{
+    method: method,
+    headers: headers,
+    body: JSON.stringify(body)
+  })
+    .then(res => {
+      return res.json()
+    })
+};
+
+
+requestForUsers('POST')
+  .then(function(){
+    removeUserData();
+  })
+
+function removeUserData() {
+  let ul = document.querySelector('.inner_list');
+  console.log(ul)
+
+  ul.addEventListener('click', function (e) {
+
+    if (e.target.parentNode) {
+      e.target.parentNode.remove(e);
+    }
+    })
+    
 }

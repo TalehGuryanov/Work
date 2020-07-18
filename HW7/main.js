@@ -63,10 +63,12 @@ function outer() {
 
 
 // 5
+var button = document.getElementsByTagName('button')[0];
 var clickButton = function(){
   var count = 1;
   return function(e){
     e.currentTarget.innerText = 'Click count: ' + count++;
+    console.log(e)
  } 
 };
 var makeCounterHandler = clickButton();

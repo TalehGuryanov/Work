@@ -2,44 +2,53 @@
 
 const container = document.getElementsByClassName('container')[0];
 const preloader = document.getElementById('cube-loader');
-let maleUsers = [];
-let femaleUsers = [];
-const requestForUsers = function(method, body = null, url){
-  return fetch("https://randomuser.me/api/?results=3&gender" + url)
-    .then(res => {
-      return res.json()
-    })
-};
 
-setTimeout(function(){
-  requestForUsers('GET', "=female")
-  .then(function({results}){
-    console.log(results);
-    maleUsers = results;
-    if(maleUsers.length && femaleUsers.length){
-      getUsersData()
+function requestForUser(url) {
+  return fetch('https://randomuser.me/api/?results=3&gender' + url);
+}
+
+function sendRequest(url, body) {
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body)
+  });
+}
+
+Promise.all([
+  requestForUser('=male'),
+  requestForUser('=female')
+])
+  .then(
+    res => {
+      const users = res.map(item => item.json());
+
+      return Promise.all(users);
     }
-  },)
-}, 1000);
+  )
+  .then(
+    res => {
+      console.log('Raw Data: ', res);
+      
+      const [male, female] = res;
+      const union = [
+        ...male.results,
+        ...female.results
+      ];
+      
+      console.log('Union of the arrays: ', union);
 
-setTimeout(function(){
-  requestForUsers('GET', "=male")
-  .then(function({results}){
-    console.log(results);
-    femaleUsers = results;
-    if(maleUsers.length && femaleUsers.length){
-      getUsersData()
+      getUsersData(union);
+      assignListener();
     }
-  },)
-}, 1000);
+  )
+  .finally(() => preloader.classList.add('_visible'));
 
 
-let getUsersData = function(){
-  let allUsers = maleUsers.concat(femaleUsers);
+let getUsersData = function(x){
   let ul = document.createElement('ul');
   ul.classList.add('inner_list')
 
-  for(let key of allUsers){
+  for(let key of x){
     const li = document.createElement('li');
 
     li.classList.add('list_item');
@@ -48,7 +57,7 @@ let getUsersData = function(){
       <div class="list_content">
         <button type="button" class="cross_button">        
         </button>
-        <div class="user_img">
+        <div class="user_img ${key.gender === 'male' ? '': '_female'}">
           <img class="img" src="${key.picture.large}" alt="User Image">
         </div>
         <div class="user_data">
@@ -60,47 +69,33 @@ let getUsersData = function(){
     ul.appendChild(li);
    }
   container.appendChild(ul);
+}
 
-  preloader.classList.add('_visible');
+let ul = document.querySelector('.inner_list');
+let li = document.querySelectorAll('li');
 
+function assignListener() {
+	const usersList = document.querySelector('ul');
+
+	usersList.addEventListener('click', e => {
+		if (e.target.tagName.toLowerCase() === 'button') {
+			removeListItem(e.target);
+		}
+	});
 }
 
 
-// const body = {
-//   id: idUsers.id
-// }
+function removeListItem(element){
 
-const deleteUserData = function(method, body = null){
-  const headers = {
-    'Content-type': 'application/json'
-  };
+  preloader.classList.toggle('_visible');
 
+  sendRequest('https://httpstat.us/200', {id: union.login})
+    .then(res=>res.text())
+    .then(res=>{
+      console.log(res)
 
-  return fetch('https://httpstat.us/200',{
-    method: method,
-    headers: headers,
-    body: JSON.stringify(body)
-  })
-    .then(res => {
-      return res.json()
-    })
-};
-
-
-requestForUsers('POST')
-  .then(function(){
-    removeUserData();
-  })
-
-function removeUserData() {
-  let ul = document.querySelector('.inner_list');
-  console.log(ul)
-
-  ul.addEventListener('click', function (e) {
-
-    if (e.target.parentNode) {
-      e.target.parentNode.remove(e);
-    }
-    })
+      element.parentNode.parentNode.remove();
     
+    })
+    .finally(() => preloader.classList.toggle('_visible'));
 }

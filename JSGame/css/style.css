@@ -43,6 +43,18 @@ body {
 	animation: ghost-movements 2s infinite;
 }
 
+._lose .b-shooter__img-ghost {
+	position: absolute;
+	width: 120px;
+	height: 120px;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	animation: ghost-scale 7s .1s cubic-bezier(0, 0.53, 0.2, 0.96) forwards;
+}
+
 .b-shooter__img-fire{
 	width: 90px;
 	height: 150px;
@@ -138,31 +150,32 @@ body {
 	padding-top: 250px;
 	pointer-events: none;
 	opacity: 0;
-	transition: opacity .2s ease-in-out;
 }
 
 .b-shooter__game-over-title {
 	font-size: 70px;
 	text-transform: uppercase;
-	letter-spacing: 5px;
+	letter-spacing: 7px;
 }
 
 .b-shooter__game-over-sub-title {
 	font-size: 24px;
 }
 
-._win {
-	opacity: 1;
+._win .b-shooter__game-over {
+	opacity: .8;
 	background-color: #fff;
 	color: #000;
 	pointer-events: auto;
+	transition: opacity .3s ease-in-out;
 }
 
-._lose {
-	opacity: 1;
+._lose .b-shooter__game-over {
+	opacity: .8;
 	background-color: #000;
 	color: #fff;
 	pointer-events: auto;
+	transition: opacity .3s ease-in-out;
 }
 
 @keyframes ghost-movements {
@@ -202,5 +215,11 @@ body {
 
 	20%, 40%, 60%, 80% {
 		opacity: .5;
+	}
+}
+
+@keyframes ghost-scale {
+	to {
+		transform: scale(17);
 	}
 }

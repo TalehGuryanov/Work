@@ -1,34 +1,39 @@
+'use strict'
 
+const cemetry = document.getElementsByClassName('b-shooter')[0];
+const aimShooter = document.getElementsByClassName('b-shooter__aim')[0];
+const aimShooterImg = document.getElementsByClassName('b-shooter__img-aim')[0];
+const ghost = document.getElementsByClassName('b-shooter__img-ghost')[0];
+const fire = document.getElementsByClassName('b-shooter__img-fire')[0];
+const progressIcon = document.getElementsByClassName('b-shooter__progress-icon');
+const healthIcon = document.getElementsByClassName('b-shooter__health-icon');
+const healthIconBar = document.getElementsByClassName('b-shooter__health')[0];
+const progressBar = document.querySelector('.b-shooter__progress');
+const delayToReset = 500;
+let isGameOver = false;
+const shooterGameOver = document.querySelector('.b-shooter__game-over');
+const shooterGameOverTitle = document.querySelector('.b-shooter__game-over-title');
 
-var cemetry = document.getElementsByClassName('b-shooter')[0];
-var aimShooter = document.getElementsByClassName('b-shooter__aim')[0];
-var aimShooterImg = document.getElementsByClassName('b-shooter__img-aim')[0];
-var ghost = document.getElementsByClassName('b-shooter__img-ghost')[0];
-var fire = document.getElementsByClassName('b-shooter__img-fire')[0];
-var progressIcon = document.getElementsByClassName('b-shooter__progress-icon');
-var healthIcon = document.getElementsByClassName('b-shooter__health-icon');
-var healthIconBar = document.getElementsByClassName('b-shooter__health')[0];
-var progressBar = document.querySelector('.b-shooter__progress');
-var delayToReset = 500;
-var isGameOver = false;
-var shooterGameOver = document.querySelector('.b-shooter__game-over');
-var shooterGameOverTitle = document.querySelector('.b-shooter__game-over-title');
-var clickHandler = function(e){
+let clickHandler = function(e){
+  e.preventDefault();
 
   if(ghost.style.animationPlayState ==='paused' || isGameOver == true){
     return
   };
 
-  var x = e.offsetX - aimShooter.offsetWidth/2;
-  var y = e.offsetY - aimShooter.offsetHeight/2;
+  let x = e.offsetX - aimShooter.offsetWidth/2;
+  let y = e.offsetY - aimShooter.offsetHeight/2;
 
   if ( x < 0){ 
     x = 0;
+
   } else if(x + aimShooter.offsetWidth > cemetry.offsetWidth){
     x = cemetry.offsetWidth - aimShooter.offsetWidth;
   };
+
   if ( y < 0){ 
     y = 0;
+
   } else if ( y + aimShooter.offsetHeight > cemetry.offsetHeight){
     y = cemetry.offsetHeight - aimShooter.offsetHeight;
   };
@@ -37,22 +42,28 @@ var clickHandler = function(e){
 
 };
 
-var keyDownHandler = function(e){
+let keyDownHandler = function(e){
+  e.preventDefault();
 
   if (e.code === 'Space') {
     aimShooterImg.style.transform = 'scale(.9)';
   }
 };
 
-var keyUpHandler = function(e){
+let keyUpHandler = function(e){
+  e.preventDefault();
 
-  if (e.code === 'Space') {
+  if((e.code === 'Enter' || e.code === 'NumpadEnter') && isGameOver){
+    reset();
+  }
+
+  if (e.code === 'Space'  && !isGameOver) {
       aimShooterImg.style.transform = '';
   
-      var rect = aimShooterImg.getBoundingClientRect();
-      var aimCenterX = rect.x + rect.width/2;
-      var aimCenterY = rect.y + rect.height/2;
-      var ghoostGoords = ghost.getBoundingClientRect();
+      let rect = aimShooterImg.getBoundingClientRect();
+      let aimCenterX = rect.x + rect.width/2;
+      let aimCenterY = rect.y + rect.height/2;
+      let ghoostGoords = ghost.getBoundingClientRect();
 
       if (
         aimCenterX <= ghoostGoords.right - 20
@@ -60,14 +71,14 @@ var keyUpHandler = function(e){
         && aimCenterY >= ghoostGoords.y - 20
         && aimCenterY <= ghoostGoords.bottom + 20
       ){
+        let animationProperties = `opacity: 0;
+          transition-duration: ${delayToReset * 0.6}ms;
+          transition-delay: ${delayToReset * 0.4}ms;`;
+
         fire.style.visibility = 'visible';
-        fire.style.transitionDuration = delayToReset * 0.6 +'ms';
-        fire.style.transitionDelay = delayToReset * 0.4 + 'ms';
-        fire.style.opacity = 0;
+        fire.style.cssText += animationProperties;
         ghost.style.animationPlayState = 'paused';
-        ghost.style.transitionDuration = delayToReset * 0.6 +'ms';
-        ghost.style.transitionDelay = delayToReset * 0.4 + 'ms';
-        ghost.style.opacity = 0;
+        ghost.style.cssText += animationProperties;
         aimShooterImg.style.display = 'none';
 
         markProgress();
@@ -76,6 +87,7 @@ var keyUpHandler = function(e){
       setTimeout(function() {
         if(isGameOver) {
           dropTheCurtain(true);
+
         } else {
           fire.removeAttribute('style');
           fire.style.visibility = 'hidden';
@@ -84,27 +96,29 @@ var keyUpHandler = function(e){
           ghost.style.display = 'none';
         }
       }, delayToReset);
-  }
+
+  } else return
 };
 
-  var setRandomCoors = function(e){
+  let setRandomCoors = function(e){
 
-    var left = Math.floor(Math.random() * (cemetry.offsetWidth - ghost.offsetWidth) +1);
-    var top = Math.floor(Math.random() * (cemetry.offsetHeight - ghost.offsetHeight) +1);
+    let left = Math.floor(Math.random() * (cemetry.offsetWidth - ghost.offsetWidth) +1);
+    let top = Math.floor(Math.random() * (cemetry.offsetHeight - ghost.offsetHeight) +1);
 
     console.log(left, top)
     ghost.style.left = left + 'px';
     ghost.style.top = top + 'px';
 };
 
-var setRandomCoorsInterval = setInterval(function(){
+let setRandomCoorsInterval = setInterval(function(){
   if (ghost.style.animationPlayState ==='paused') {
     return
   } 
   
-  if (ghost.style.display == 'none'){
+  if (ghost.style.display === 'none'){
       ghost.style.display = '';
       setRandomCoors();
+
   } else {
     setRandomCoors();
     markLifeStatus();
@@ -115,8 +129,8 @@ function markLifeStatus(){
 
   if(healthIconBar.classList.contains('_loss-bar')){
     isGameOver = true;
-    dropTheCurtain(fasle);
-    return
+    dropTheCurtain(false);
+    return;
   };
 
   for( let i = 0; i < healthIcon.length; i++){
@@ -126,7 +140,9 @@ function markLifeStatus(){
       if(i === healthIcon.length-1){
         healthIconBar.classList.add('_loss-bar')
       };
-      break
+
+      break;
+
     };
   };
 };
@@ -136,12 +152,13 @@ function markProgress(){
   for( let i = 0; i < progressIcon.length; i++){
     if(!progressIcon[i].classList.contains('_score')){
       progressIcon[i].classList.add('_score');
-      console.log(isGameOver)
 
       if(i === progressIcon.length-1){
         isGameOver = true;
       };
-      break
+
+      break;
+
     };
   };
 };
@@ -150,38 +167,47 @@ function dropTheCurtain (isWin) {
   if(isWin) {
     cemetry.classList.add('_win');
     shooterGameOverTitle.innerText = 'You Win';
+    healthIconBar.style.display = 'none';
+    progressBar.style.display = 'none';
+    
   }  else {
     cemetry.classList.add('_lose');
     shooterGameOverTitle.innerText = 'You Lose';
-    ghost.removeAttribute('style')
+    ghost.removeAttribute('style');
+    healthIconBar.style.display = 'none';
+    progressBar.style.display = 'none';
+    aimShooterImg.style.display = 'none';
   }
  }
 
- function reset() {
-   isGameOver == false;
-   healthIconBar.classList.remove('_loss-bar');
-   cemetry.classList.remove('_win');
-   cemetry.classList.remove('_lose');
-   ghost.removeAttribute('style');
-   ghost.style.display = ('none');
-   fire.removeAttribute('style');
-   aimShooterImg.removeAttribute('style');
+function reset() {
+  isGameOver = false;
+  healthIconBar.classList.remove('_loss-bar');
+  cemetry.classList.remove('_win');
+  cemetry.classList.remove('_lose');
+  ghost.removeAttribute('style');
+  ghost.style.display = ('none');
+  fire.removeAttribute('style');
+  aimShooterImg.removeAttribute('style');
+  healthIconBar.style.display = '';
+  progressBar.style.display = '';
+  aimShooterImg.style.display = '';
 
-   for(key of healthIcon) {
-     key.classList.remove('_loss-bar');
-   }
+  for (let i = 0; i < progressIcon.length; i++) {
+    if (progressIcon[i].classList.contains('_score')) {
+        progressIcon[i].classList.remove('_score');
+    };
+  };
 
-   for(key of progressBar) {
-    key.classList.remove('_score');
-  }
- }
+  for (let i = 0; i < healthIcon.length; i++) {
+      if (healthIcon[i].classList.contains('_loss')) {
+          healthIcon[i].classList.remove('_loss');
+      };
+  };
+}
 
 document.body.addEventListener('keydown', keyDownHandler);
 document.body.addEventListener('keyup', keyUpHandler);
 cemetry.addEventListener('click', clickHandler);
-document.body.addEventListener('keyup', function(e){
-  if((e.code === 'enter' || e.code === 'NumpadEnter') && isGameOver){
-    reset()
-  }
-})
+
 

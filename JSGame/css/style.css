@@ -21,9 +21,10 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	transition: transform .5s ease-in-out;
+	transition: transform .25s ease-in-out;
+	transform: translate(15px, 50px);
 	pointer-events: none;
-	z-index: 1;
+	z-index: 5;
 }
 
 .b-shooter__img-aim{
@@ -37,6 +38,7 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 2;
 	pointer-events: none;
 	transition: opacity;
 	transition-timing-function: ease-in;
@@ -69,10 +71,7 @@ body {
 
 .b-shooter__progress{
 	background-color: hsl(0, 0%, 0%, 50%);
-	border-top-left-radius: 20px;
-	border-top-right-radius: 20px;
-	border-bottom-left-radius: 20px;
-	border-bottom-right-radius: 20px;
+	border-radius: 20px;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
@@ -108,10 +107,7 @@ body {
 	right: 5px;
 	bottom: 5px;
 	background-color: hsl(0, 0%, 0%, 50%);
-	border-top-left-radius: 30px;
-	border-top-right-radius: 30px;
-	border-bottom-left-radius: 30px;
-	border-bottom-right-radius: 30px;
+	border-radius: 30px;
 	display: flex;
 	justify-content: center;
 	padding: 8px 17px;
@@ -175,6 +171,7 @@ body {
 	background-color: #000;
 	color: #fff;
 	pointer-events: auto;
+	z-index: 10;
 	transition: opacity .3s ease-in-out;
 }
 

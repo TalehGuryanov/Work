@@ -118,7 +118,7 @@ body {
 	height: 35px;
 	margin: 0 10px;
 	fill: #f44336;
-	transition: tansform .2s ease-in, fill .2s ease-in;
+	transition: transform .2s ease-in, fill .2s ease-in;
 }
 
 .b-shooter__health-icon:first-child{
@@ -129,7 +129,7 @@ body {
 	margin-right: 0;
 }
 
-._loss-bar{
+._loss-bar.b-shooter__health{
 	animation: blink 2s ease-in-out infinite;
 }
 
@@ -152,6 +152,7 @@ body {
 	font-size: 70px;
 	text-transform: uppercase;
 	letter-spacing: 7px;
+	margin-bottom: 15px;
 }
 
 .b-shooter__game-over-sub-title {
@@ -159,20 +160,20 @@ body {
 }
 
 ._win .b-shooter__game-over {
-	opacity: .8;
-	background-color: #fff;
+	opacity: 1;
+	background-color: rgba(255, 255, 255, .8);
 	color: #000;
 	pointer-events: auto;
-	transition: opacity .3s ease-in-out;
+	transition: opacity 1s ease-in-out;
 }
 
 ._lose .b-shooter__game-over {
-	opacity: .8;
-	background-color: #000;
+	opacity: 1;
+	background-color: rgba(0, 0, 0, .8);
 	color: #fff;
 	pointer-events: auto;
 	z-index: 10;
-	transition: opacity .3s ease-in-out;
+	transition: opacity 1s ease-in-out;
 }
 
 @keyframes ghost-movements {

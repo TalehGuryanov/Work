@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const cemetry = document.getElementsByClassName('b-shooter')[0];
 const aimShooter = document.getElementsByClassName('b-shooter__aim')[0];
@@ -14,19 +14,19 @@ let isGameOver = false;
 const shooterGameOver = document.querySelector('.b-shooter__game-over');
 const shooterGameOverTitle = document.querySelector('.b-shooter__game-over-title');
 
-let clickHandler = function(e){
+let clickHandler = (e) => {
   e.preventDefault();
 
   if(ghost.style.animationPlayState ==='paused' || isGameOver == true){
     return
   };
 
-  let x = e.offsetX - aimShooter.offsetWidth/2;
-  let y = e.offsetY - aimShooter.offsetHeight/2;
+  const x = e.offsetX - aimShooter.offsetWidth/2;
+  const y = e.offsetY - aimShooter.offsetHeight/2;
 
   if ( x < 0){ 
     x = 0;
-
+    
   } else if(x + aimShooter.offsetWidth > cemetry.offsetWidth){
     x = cemetry.offsetWidth - aimShooter.offsetWidth;
   };
@@ -42,28 +42,31 @@ let clickHandler = function(e){
 
 };
 
-let keyDownHandler = function(e){
-  e.preventDefault();
+const keyDownHandler = (e) => {
 
-  if (e.code === 'Space') {
+  if (e.code === 'Space' && isGameOver) {
+    e.preventDefault();
     aimShooterImg.style.transform = 'scale(.9)';
   }
 };
 
-let keyUpHandler = function(e){
+const keyUpHandler = (e) => {
   e.preventDefault();
 
   if((e.code === 'Enter' || e.code === 'NumpadEnter') && isGameOver){
-    reset();
+    return reset();
+
+  } else if(e.code !== 'Space' || isGameOver) {
+    return;
   }
 
   if (e.code === 'Space'  && !isGameOver) {
       aimShooterImg.style.transform = '';
   
-      let rect = aimShooterImg.getBoundingClientRect();
-      let aimCenterX = rect.x + rect.width/2;
-      let aimCenterY = rect.y + rect.height/2;
-      let ghoostGoords = ghost.getBoundingClientRect();
+      const rect = aimShooterImg.getBoundingClientRect();
+      const aimCenterX = rect.x + rect.width/2;
+      const aimCenterY = rect.y + rect.height/2;
+      const ghoostGoords = ghost.getBoundingClientRect();
 
       if (
         aimCenterX <= ghoostGoords.right - 20
@@ -82,25 +85,25 @@ let keyUpHandler = function(e){
         aimShooterImg.style.display = 'none';
 
         markProgress();
+
+        setTimeout(() => {
+          if(isGameOver) {
+            dropTheCurtain(true);
+
+          } else {
+            fire.removeAttribute('style');
+            fire.style.visibility = 'hidden';
+            aimShooterImg.style.display = '';
+            ghost.removeAttribute('style');
+            ghost.style.display = 'none';
+          }
+        }, delayToReset);
       };
-
-      setTimeout(function() {
-        if(isGameOver) {
-          dropTheCurtain(true);
-
-        } else {
-          fire.removeAttribute('style');
-          fire.style.visibility = 'hidden';
-          aimShooterImg.style.display = '';
-          ghost.removeAttribute('style');
-          ghost.style.display = 'none';
-        }
-      }, delayToReset);
 
   } else return
 };
 
-  let setRandomCoors = function(e){
+  let setRandomCoors = (e) => {
 
     let left = Math.floor(Math.random() * (cemetry.offsetWidth - ghost.offsetWidth) +1);
     let top = Math.floor(Math.random() * (cemetry.offsetHeight - ghost.offsetHeight) +1);
@@ -110,7 +113,7 @@ let keyUpHandler = function(e){
     ghost.style.top = top + 'px';
 };
 
-let setRandomCoorsInterval = setInterval(function(){
+let setRandomCoorsInterval = setInterval(() => {
   if (ghost.style.animationPlayState ==='paused') {
     return
   } 
@@ -118,14 +121,14 @@ let setRandomCoorsInterval = setInterval(function(){
   if (ghost.style.display === 'none'){
       ghost.style.display = '';
       setRandomCoors();
-
+      
   } else {
     setRandomCoors();
     markLifeStatus();
   }
 }, 3000);
 
-function markLifeStatus(){
+let markLifeStatus = () => {
 
   if(healthIconBar.classList.contains('_loss-bar')){
     isGameOver = true;
@@ -147,7 +150,7 @@ function markLifeStatus(){
   };
 };
 
-function markProgress(){
+const markProgress = () => {
   
   for( let i = 0; i < progressIcon.length; i++){
     if(!progressIcon[i].classList.contains('_score')){
@@ -163,24 +166,20 @@ function markProgress(){
   };
 };
 
-function dropTheCurtain (isWin) {
+const dropTheCurtain = (isWin) => {
   if(isWin) {
     cemetry.classList.add('_win');
     shooterGameOverTitle.innerText = 'You Win';
-    healthIconBar.style.display = 'none';
-    progressBar.style.display = 'none';
-    
+
   }  else {
     cemetry.classList.add('_lose');
     shooterGameOverTitle.innerText = 'You Lose';
     ghost.removeAttribute('style');
-    healthIconBar.style.display = 'none';
-    progressBar.style.display = 'none';
     aimShooterImg.style.display = 'none';
   }
  }
 
-function reset() {
+const reset = () => {
   isGameOver = false;
   healthIconBar.classList.remove('_loss-bar');
   cemetry.classList.remove('_win');

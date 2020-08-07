@@ -97,7 +97,7 @@ body {
 	margin-bottom: 0;
 }
 
-._score{
+.b-shooter__progress-icon._score{
 	opacity: 0.2;
 	transform: rotate(180deg);
 }
@@ -133,7 +133,7 @@ body {
 	animation: blink 2s ease-in-out infinite;
 }
 
-._loss{
+.b-shooter__health-icon._loss{
 	transform: scale(.85);
 	fill: rgba(90, 87, 98, 0.7);
 }
@@ -167,6 +167,10 @@ body {
 	transition: opacity 1s ease-in-out;
 }
 
+._win.b-shooter__progress, ._win.b-shooter__health {
+	display: none;
+}
+
 ._lose .b-shooter__game-over {
 	opacity: 1;
 	background-color: rgba(0, 0, 0, .8);
@@ -174,6 +178,14 @@ body {
 	pointer-events: auto;
 	z-index: 10;
 	transition: opacity 1s ease-in-out;
+}
+
+._lose.b-shooter__health {
+	display: none;
+}
+
+._lose.b-shooter__aim {
+	display: none;
 }
 
 @keyframes ghost-movements {

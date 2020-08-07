@@ -15,9 +15,10 @@ const shooterGameOver = document.querySelector('.b-shooter__game-over');
 const shooterGameOverTitle = document.querySelector('.b-shooter__game-over-title');
 
 let clickHandler = (e) => {
+
   e.preventDefault();
 
-  if(ghost.style.animationPlayState ==='paused' || isGameOver == true){
+  if(ghost.style.animationPlayState ==='paused' || isGameOver){
     return
   };
 
@@ -43,7 +44,6 @@ let clickHandler = (e) => {
 };
 
 const keyDownHandler = (e) => {
-
   if (e.code === 'Space' && isGameOver) {
     e.preventDefault();
     aimShooterImg.style.transform = 'scale(.9)';
@@ -53,7 +53,7 @@ const keyDownHandler = (e) => {
 const keyUpHandler = (e) => {
   e.preventDefault();
 
-  if((e.code === 'Enter' || e.code === 'NumpadEnter') && isGameOver){
+  if((e.key === 'Enter') && isGameOver){
     return reset();
 
   } else if(e.code !== 'Space' || isGameOver) {
@@ -103,17 +103,17 @@ const keyUpHandler = (e) => {
   } else return
 };
 
-  let setRandomCoors = (e) => {
+const setRandomCoors = (e) => {
 
-    let left = Math.floor(Math.random() * (cemetry.offsetWidth - ghost.offsetWidth) +1);
-    let top = Math.floor(Math.random() * (cemetry.offsetHeight - ghost.offsetHeight) +1);
+  let left = Math.floor(Math.random() * (cemetry.offsetWidth - ghost.offsetWidth) +1);
+  let top = Math.floor(Math.random() * (cemetry.offsetHeight - ghost.offsetHeight) +1);
 
-    console.log(left, top)
-    ghost.style.left = left + 'px';
-    ghost.style.top = top + 'px';
+  console.log(left, top)
+  ghost.style.left = left + 'px';
+  ghost.style.top = top + 'px';
 };
 
-let setRandomCoorsInterval = setInterval(() => {
+setInterval(() => {
   if (ghost.style.animationPlayState ==='paused') {
     return
   } 
@@ -128,7 +128,7 @@ let setRandomCoorsInterval = setInterval(() => {
   }
 }, 3000);
 
-let markLifeStatus = () => {
+const markLifeStatus = () => {
 
   if(healthIconBar.classList.contains('_loss-bar')){
     isGameOver = true;
@@ -169,18 +169,21 @@ const markProgress = () => {
 const dropTheCurtain = (isWin) => {
   if(isWin) {
     cemetry.classList.add('_win');
+    progressBar.classList.add('_win');
     shooterGameOverTitle.innerText = 'You Win';
+    healthIconBar.classList.add('_win')
 
   }  else {
     cemetry.classList.add('_lose');
     shooterGameOverTitle.innerText = 'You Lose';
     ghost.removeAttribute('style');
-    aimShooterImg.style.display = 'none';
+    aimShooter.classList.add('_lose');
   }
  }
 
 const reset = () => {
   isGameOver = false;
+  aimShooter.classList.remove('_lose');
   healthIconBar.classList.remove('_loss-bar');
   cemetry.classList.remove('_win');
   cemetry.classList.remove('_lose');
@@ -188,9 +191,8 @@ const reset = () => {
   ghost.style.display = ('none');
   fire.removeAttribute('style');
   aimShooterImg.removeAttribute('style');
-  healthIconBar.style.display = '';
-  progressBar.style.display = '';
-  aimShooterImg.style.display = '';
+  progressBar.classList.remove('_win');
+  healthIconBar.classList.remove('_win');
 
   for (let i = 0; i < progressIcon.length; i++) {
     if (progressIcon[i].classList.contains('_score')) {
